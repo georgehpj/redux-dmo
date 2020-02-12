@@ -1,0 +1,12 @@
+{
+  "port": 3002,
+  "disableHostCheck": true,
+  "proxy": [
+    {
+      "context": ["/app", "/api"],
+      "target": "http://paas-t.xforceplus.com",
+      "changeOrigin": true,
+      "secure": false
+    }
+  ]
+}

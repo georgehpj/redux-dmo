@@ -1,0 +1,36 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "Created by xf-sanctuary-cli",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "xp-sanctuary-scripts react-single dev",
+    "mock": "xp-sanctuary-scripts react-single mock",
+    "prod": "xp-sanctuary-scripts react-single prod",
+    "analyzer": "xp-sanctuary-scripts react-single analyzer",
+    "test": "xp-sanctuary-scripts react-single test"
+  },
+  "author": "georgehupeijie",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-xforceplus": "^1.0.0",
+    "mockjs": "^1.1.0",
+    "react-test-renderer": "^16.8.4",
+    "xp-sanctuary-scripts": "^3.0.8"
+  },
+  "dependencies": {
+    "@xforceplus/pass-user-resources": "^1.0.3",
+    "@xforceplus/standard-http-request": "^3.0.3",
+    "@xforceplus/theme-style-generator": "^1.0.4",
+    "@xforceplus/themes-sass": "^1.0.1",
+    "antd": "^3.26.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-redux": "^6.0.1",
+    "redux-thunk": "^2.3.0",
+    "redux": "^4.0.5"
+  },
+  "jest": {},
+  "updatePkg": []
+}

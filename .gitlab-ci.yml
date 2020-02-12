@@ -1,0 +1,3 @@
+include: 'http://gitlab4.0.xforceplus.com/common/react-gitlabci4-minio/raw/paas-spa/ci/.gitlab-ci.yml'
+
+
