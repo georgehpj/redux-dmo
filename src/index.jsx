@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { createStore } from './redux';
-import { reducer } from './reducer';
+import { createStore, combineReducer } from './redux';
+import { number, logs } from './reducer';
+import MyComponent from './MyComponent';
+import { Provider } from './react-redux';
 
+const reducer = combineReducer({
+  number,
+  logs,
+});
 const store = createStore(reducer);
 
 class App extends Component {
   render() {
     return (
-      <div>
-        <h1>{store.getState()}</h1>
-        <button onClick={() => store.dispatch({ type: 'INCREASE' })}>+</button>
-      </div>
+      <Provider store={store}>
+        <MyComponent />
+      </Provider>
     );
   }
 }

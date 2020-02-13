@@ -25,6 +25,12 @@ const createStore = (reducer) => {
   };
 };
 
+const combineReducer = reducers => (state = {}, action) => Object.keys(reducers).reduce((newState, key) => {
+  newState[key] = reducers[key](state[key], action);
+  return newState;
+}, state);
+
 export {
   createStore,
+  combineReducer,
 };
