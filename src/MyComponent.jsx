@@ -1,28 +1,34 @@
 import React from 'react';
-import { Consumer } from './react-redux';
+import { connect } from './react-redux';
+import { increase, decrease } from './action';
+import { bindActionCreators } from './redux';
 
-export default class MyComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
+const mapStateToProps = state => ({
+  number: state.number,
+  logs: state.logs,
+});
+
+const mapDisplayToProps = dispatch => bindActionCreators({
+  increase, decrease,
+}, dispatch);
+
+class MyComponent extends React.Component {
   render() {
     return (
-      <Consumer>
-        {({ store }) => (
-          <div>
-            <h1>{store.getState().number}</h1>
-            <button onClick={() => store.dispatch({ type: 'INCREASE' })}>+</button>
-            <button onClick={() => store.dispatch({ type: 'DECREASE' })}>-</button>
+      <div>
+        <h1>{this.props.number}</h1>
+        <button onClick={this.props.increase}>+</button>
+        <button onClick={this.props.decrease}>-</button>
 
-            <ul>
-              {store.getState().logs.map(log => (
-                <li>{log}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </Consumer>
+        <ul>
+          {this.props.logs.map(log => (
+            <li>{log}</li>
+          ))}
+        </ul>
+      </div>
     );
   }
 }
+
+export default connect(mapStateToProps, mapDisplayToProps)(MyComponent);

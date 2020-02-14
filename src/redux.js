@@ -30,7 +30,13 @@ const combineReducer = reducers => (state = {}, action) => Object.keys(reducers)
   return newState;
 }, state);
 
+const bindActionCreators = (actionCreators, dispatch) => Object.keys(actionCreators).reduce((result, key) => {
+  result[key] = () => actionCreators[key](dispatch);
+  return result;
+}, {});
+
 export {
   createStore,
   combineReducer,
+  bindActionCreators,
 };

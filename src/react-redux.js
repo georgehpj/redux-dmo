@@ -7,7 +7,7 @@ class Provider extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      storeState: null,
+      storeState: props.store.getState(),
     };
   }
 
@@ -32,7 +32,21 @@ class Provider extends React.Component {
   }
 }
 
+const connect = (mapStateToProps, mapDispatchToProps) => Component => (
+  props => (
+    <Context.Consumer>
+      {(value) => {
+        const { store, storeState } = value;
+        const { dispatch } = store;
+        const mergedProps = { ...props, ...mapStateToProps(storeState), ...mapDispatchToProps(dispatch) };
+        return <Component {...mergedProps} />;
+      }}
+    </Context.Consumer>
+  )
+);
+
+
 export {
   Provider,
-  Consumer,
+  connect,
 };
