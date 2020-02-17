@@ -31,7 +31,7 @@ const combineReducer = reducers => (state = {}, action) => Object.keys(reducers)
 }, state);
 
 const bindActionCreators = (actionCreators, dispatch) => Object.keys(actionCreators).reduce((result, key) => {
-  result[key] = () => actionCreators[key](dispatch);
+  result[key] = (...args) => dispatch(actionCreators[key](...args));
   return result;
 }, {});
 

@@ -7,15 +7,17 @@ export const TYPES = {
   DECREASE,
 };
 
-const increase = (dispatch) => {
-  dispatch({ type: 'INCREASE' });
-};
-const decrease = (dispatch) => {
-  dispatch({ type: 'DECREASE' });
-};
+const increase = () => ({ type: 'INCREASE' });
 
+const decrease = () => ({ type: 'DECREASE' });
+
+const asyncIncrease = () => function (dispatch, getState) {
+  console.log(`getState() result: ${JSON.stringify(getState())}`);
+  setTimeout(() => dispatch({ type: 'INCREASE' }), 500);
+};
 
 export {
   increase,
   decrease,
+  asyncIncrease,
 };

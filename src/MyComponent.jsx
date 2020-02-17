@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from './react-redux';
-import { increase, decrease } from './action';
+import { increase, decrease, asyncIncrease } from './action';
 import { bindActionCreators } from './redux';
 
 
@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDisplayToProps = dispatch => bindActionCreators({
-  increase, decrease,
+  increase, decrease, asyncIncrease,
 }, dispatch);
 
 class MyComponent extends React.Component {
@@ -20,7 +20,7 @@ class MyComponent extends React.Component {
         <h1>{this.props.number}</h1>
         <button onClick={this.props.increase}>+</button>
         <button onClick={this.props.decrease}>-</button>
-
+        <button onClick={this.props.asyncIncrease}>async +</button>
         <ul>
           {this.props.logs.map(log => (
             <li>{log}</li>
