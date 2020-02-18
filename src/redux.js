@@ -35,8 +35,29 @@ const bindActionCreators = (actionCreators, dispatch) => Object.keys(actionCreat
   return result;
 }, {});
 
+
+const compose = (...funcs) => funcs.reduce((a, b) => (...args) => a(b(...args)));
+
+const applyMiddleware = (...middlewares) => function (createStore) {
+  return function (...args) {
+    const store = createStore(...args);
+    let dispatch;
+    const _store = {
+      getState: store.getState,
+      dispatch: (...args) => dispatch(...args),
+    };
+
+    const chain = middlewares.map(middleware => middleware(_store));
+    store.dispatch = compose(...chain)(store.dispatch);
+    dispatch = store.dispatch;
+    return store;
+  };
+};
+
 export {
   createStore,
   combineReducer,
   bindActionCreators,
+  compose,
+  applyMiddleware,
 };

@@ -24,25 +24,29 @@ class Provider extends React.Component {
   }
 
   render() {
+    const Provider = this.props.context ? this.props.context.Provider : Context.Provider;
     return (
-      <Context.Provider value={{ store: this.props.store, storeState: this.state.storeState }}>
+      <Provider value={{ store: this.props.store, storeState: this.state.storeState }}>
         {this.props.children}
-      </Context.Provider>
+      </Provider>
     );
   }
 }
 
-const connect = (mapStateToProps, mapDispatchToProps) => Component => (
-  props => (
-    <Context.Consumer>
-      {(value) => {
-        const { store, storeState } = value;
-        const { dispatch } = store;
-        const mergedProps = { ...props, ...mapStateToProps(storeState), ...mapDispatchToProps(dispatch) };
-        return <Component {...mergedProps} />;
-      }}
-    </Context.Consumer>
-  )
+const connect = (mapStateToProps, mapDispatchToProps, mergeProps, options) => Component => (
+  (props) => {
+    const Consumer = options && options.context ? options.context.Consumer : Context.Consumer;
+    return (
+      <Consumer>
+        {(value) => {
+          const { store, storeState } = value;
+          const { dispatch } = store;
+          const mergedProps = { ...props, ...mapStateToProps(storeState), ...mapDispatchToProps(dispatch) };
+          return <Component {...mergedProps} />;
+        }}
+      </Consumer>
+    );
+  }
 );
 
 

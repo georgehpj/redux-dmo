@@ -12,7 +12,7 @@ const increase = () => ({ type: 'INCREASE' });
 const decrease = () => ({ type: 'DECREASE' });
 
 const asyncIncrease = () => function (dispatch, getState) {
-  console.log(`getState() result: ${JSON.stringify(getState())}`);
+  console.log(`asyncIncrease getState(): ${JSON.stringify(getState())}`);
   setTimeout(() => dispatch({ type: 'INCREASE' }), 500);
 };
 

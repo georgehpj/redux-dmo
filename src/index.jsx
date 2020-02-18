@@ -1,45 +1,18 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { createStore, combineReducer } from './redux';
+import { createStore, combineReducer, applyMiddleware } from './redux';
 import { number, logs } from './reducer';
 import MyComponent from './MyComponent';
 import { Provider } from './react-redux';
+import thunk from './middlewares/thunk';
+import log from './middlewares/log';
 
 const reducer = combineReducer({
   number,
   logs,
 });
-const store = createStore(reducer);
 
-function log({ getState }) {
-  return function (next) {
-    return function (action) {
-      console.log(`type: ${action.type}`);
-      console.log(`state before: ${JSON.stringify(getState())}`);
-      next(action);
-      console.log(`state after: ${JSON.stringify(getState())}`);
-    };
-  };
-}
-
-function thunk({ dispatch, getState }) {
-  return function (next) {
-    return function (action) {
-      if (typeof action === 'function') {
-        return action(dispatch, getState);
-      }
-      return next(action);
-    };
-  };
-}
-
-let dispatch;
-const _store = {
-  getState: store.getState,
-  dispatch: (...args) => dispatch(...args),
-};
-store.dispatch = thunk(_store)(log(_store)(store.dispatch));
-dispatch = store.dispatch;
+const store = applyMiddleware(thunk, log)(createStore)(reducer);
 
 class App extends Component {
   render() {
