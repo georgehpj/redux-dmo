@@ -24,11 +24,13 @@ class App extends Component {
   }
 }
 
-const r = () => {
-  // 基于react-platform的项目不要修改id
-  render(<App />, document.querySelector('#app'));
-};
+render(<App />, document.querySelector('#app'));
 
-r();
+// const r = () => {
+//   // 基于react-platform的项目不要修改id
+//   render(<App />, document.querySelector('#app'));
+// };
 
-store.subscribe(r);
+// r();
+
+// store.subscribe(r);
